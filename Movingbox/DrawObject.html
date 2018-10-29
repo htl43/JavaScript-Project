@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <style>
+  
+    </style>
+<body>
+    <h1>Changed Boxs</h1>
+    <h3>Use mouse to hold and drop on other box to exchange</h3>
+    <div id='d1' style="position: absolute">
+        <canvas id="myCanvas"  width="800" height="300" style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.</canvas>
+
+        <img draggable="true" ondragstart="dragStart(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" ondragend="dragEnd(event)" ondragover="allowDrop(event)" ondrop="drop(event)" id='box1' src="box1.png"style="position: absolute; left:110px; top:100px; width:120px; height:120px">
+        <img draggable="true" ondragstart="dragStart(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" ondragend="dragEnd(event)" ondragover="allowDrop(event)" ondrop="drop(event)" id='box2' src="box2.png"style="position: absolute; left:310px; top:100px; width:120px; height:120px">
+        <img draggable="true" ondragstart="dragStart(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" ondragend="dragEnd(event)" ondragover="allowDrop(event)" ondrop="drop(event)" id='box3' src="box3.png"style="position: absolute; left:510px; top:100px; width:120px; height:120px">
+        <p id="display"></p>
+        <button onclick="reStart()"> Reset </button>
+    </div>
+    
+<script>
+
+    function reStart() {
+         window.location.reload();
+    }
+
+    var srcImg;
+    var srcID ;
+    var imge2;
+    
+    function dragStart(event) {
+        
+        srcID = event.target.id;
+        srcImg = event.target.src;
+        srcImg = srcImg.replace(/^.*[\\\/]/, '');
+        document.getElementById(srcID).style.opacity = "0.4";
+    }
+   
+    function dragEnter(event) {
+       
+        let id2 = event.target.id;
+        imge2 = event.target.src;
+        imge2 = imge2.replace(/^.*[\\\/]/, '');
+        //document.getElementById("display").innerHTML = srcImg + " " + srcID + "<br/>" + imge2 + " " + id2;
+        
+        if (srcImg != imge2){
+            document.getElementById(srcID).src = imge2;
+            document.getElementById(id2).src = srcImg;
+            document.getElementById(srcID).style.opacity = "1";
+            document.getElementById(id2).style.opacity = "0.4";
+        }
+
+    }
+
+    function dragLeave(event) {
+        
+        let id3 = event.target.id;
+   
+        if (id3 != srcID){
+            //document.getElementById("display").innerHTML = srcImg + " " + srcID + "<br/>" + imge2 + " " + id3;
+            document.getElementById(srcID).src = srcImg;
+            document.getElementById(id3).src = imge2;
+            document.getElementById(srcID).style.opacity = "0.4";
+            document.getElementById(id3).style.opacity = "1";
+            
+        } 
+    }
+
+    function dragEnd(event) {
+        document.getElementById(srcID).style.opacity = "1";
+    }
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+
+        let targetID = event.target.id;
+        let targetImg = event.target.src;
+        targetImg = targetImg.replace(/^.*[\\\/]/, '');
+        document.getElementById(srcID).style.opacity = "1";
+        document.getElementById(targetID).style.opacity = "1";
+       
+    }
+
+</script> 
+
+</body>
+</html>
+
