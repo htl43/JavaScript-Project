@@ -25,7 +25,8 @@
 
     var srcImg;
     var srcID ;
-    var imge2;
+    var targetID;
+    var targetImg;
     
     function dragStart(event) {
         
@@ -37,36 +38,38 @@
    
     function dragEnter(event) {
        
-        let id2 = event.target.id;
-        imge2 = event.target.src;
-        imge2 = imge2.replace(/^.*[\\\/]/, '');
-        //document.getElementById("display").innerHTML = srcImg + " " + srcID + "<br/>" + imge2 + " " + id2;
-        
-        if (srcImg != imge2){
-            document.getElementById(srcID).src = imge2;
-            document.getElementById(id2).src = srcImg;
+        targetID = event.target.id;
+        targetImg = event.target.src;
+        targetImg = targetImg.replace(/^.*[\\\/]/, '');
+           
+        if (srcImg != targetImg){
+            document.getElementById(srcID).src = targetImg;
+            document.getElementById(targetID).src = srcImg;
             document.getElementById(srcID).style.opacity = "1";
-            document.getElementById(id2).style.opacity = "0.4";
+            document.getElementById(targetID).style.opacity = "0.4";
+            document.getElementById("d1").style.backgroundColor = "lightblue";
         }
 
     }
 
     function dragLeave(event) {
         
-        let id3 = event.target.id;
+        targetID = event.target.id;
    
-        if (id3 != srcID){
-            //document.getElementById("display").innerHTML = srcImg + " " + srcID + "<br/>" + imge2 + " " + id3;
+        if (targetID != srcID){
+           
             document.getElementById(srcID).src = srcImg;
-            document.getElementById(id3).src = imge2;
+            document.getElementById(targetID).src = targetImg;
             document.getElementById(srcID).style.opacity = "0.4";
-            document.getElementById(id3).style.opacity = "1";
-            
+            document.getElementById(targetID).style.opacity = "1";
+            document.getElementById("d1").style.backgroundColor = "white";
         } 
     }
 
     function dragEnd(event) {
         document.getElementById(srcID).style.opacity = "1";
+       
+
     }
     function allowDrop(event) {
         event.preventDefault();
@@ -74,13 +77,14 @@
 
     function drop(event) {
         event.preventDefault();
-
-        let targetID = event.target.id;
-        let targetImg = event.target.src;
+        document.getElementById("d1").style.backgroundColor = "white";
+        document.getElementById(srcID).style.opacity = "1";        
+        targetID = event.target.id;
+        targetImg = event.target.src;
         targetImg = targetImg.replace(/^.*[\\\/]/, '');
         document.getElementById(srcID).style.opacity = "1";
         document.getElementById(targetID).style.opacity = "1";
-       
+        
     }
 
 </script> 
